@@ -22,6 +22,11 @@ namespace RestSharp_MSTest
         {
             var client = new RestClient("http://localhost:3000/");
             var request = new RestRequest("posts/{postid}", Method.GET);
+
+           /* IRestClient restClient = new RestClient();
+            IRestRequest restRequest = new RestRequest(getUrl);
+            restClient.Get(restRequest);
+           */
             request.AddUrlSegment("postid", 1);
             Console.WriteLine("Request: " + request);
 
@@ -67,6 +72,7 @@ namespace RestSharp_MSTest
             var client = new RestClient("http://localhost:3000/");
             var request = new RestRequest("posts", Method.POST);
 
+            //request.AddJsonBody(new { id2 = "15", author3 = "aj", title = "ajtitle" });
             request.AddJsonBody(new Posts() { id = "15", author = "aj", title = "ajtitle" });
 
             var response = client.Execute(request);
@@ -86,7 +92,7 @@ namespace RestSharp_MSTest
             request.AddJsonBody(new Posts() { id = "16", author = "aj", title = "ajtitle" });
 
             var response = client.Execute<Posts>(request);
-
+            // only shows data that is posted, not verifying up Get.
             Assert.AreEqual("aj", response.Data.author);
         }
 
